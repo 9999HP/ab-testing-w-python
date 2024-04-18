@@ -16,8 +16,12 @@ df_control = pd.DataFrame(clicks_control, columns=["click"])
 df_control.insert(1, "group", "control")
 
 # Concatenation of both df in a single one
-df = pd.concat([df_exp, df_control], axis=0).reset_index(names=["user_id"])
-print(df)
+df = pd.concat([df_exp, df_control], axis=0).reset_index(drop=True)
+df.insert(0, "user_id", pd.RangeIndex(start=1, stop=len(df) + 1))
+print(df.head(), df.tail())
+
+# Check if the user_id isn't restarting when switching from exp to control
+print(df.groupby("group").max("user_id"))
 
 # Export to a CSV file
 df.to_csv("ab_test_data.csv", index=False)

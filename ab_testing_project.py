@@ -19,4 +19,14 @@ plt.title("Clicks distribution in both Experimental and Control groups")
 plt.xlabel("Groups")
 plt.ylabel("Count of clicks")
 plt.legend(title="Click?", labels=["No", "Yes"])
+
+# Calculate percentages and annotate each bar
+total = df.groupby(["group"]).size()["exp"] # or len(df)/2 since there are 2 groups
+
+for p in ax.patches:
+    height = p.get_height()
+    if height > 0: # We want to display the percentages only if the height of the bar is > 0
+        percentage = '{:.1f}%'.format(100 * height / total)
+        ax.text(p.get_x() + p.get_width() / 2., height + 40, percentage, ha="center", color='black')
+
 plt.show()

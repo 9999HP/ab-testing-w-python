@@ -36,6 +36,7 @@ plt.close()
 alpha = 0.05
 mde = 0.10
 
+# Variables that will be used for the computation of the pooled variance
 N_control = len(df[df["group"] == "control"])
 N_exp = len(df[df["group"] == "exp"])
 X_control = df[df["group"] == "control"]["click"].sum()
@@ -52,4 +53,18 @@ print(f"Click probability in the control group: {p_control}")
 print(f"Click probability in the experimental group: {p_exp}")
 print(f"Pooled Click probability: {p_pooled}")
 
-# Continue with Pooled Variance, Standard Error and T Test
+# Pooled Variance
+pooled_var = p_pooled * (1-p_pooled) * (1/N_control + 1/N_exp)
+print(f"The pooled variance is equal to: {pooled_var}")
+
+# Standard Error of the pooled variance
+SE = np.sqrt(pooled_var)
+print(f"Standard Error: {SE}")
+
+# Z-test test statistics
+stat_ztest = (p_control - p_exp) / SE
+print(f"Test Statistics for 2-sample Z-test is: {stat_ztest}")
+
+# critical value of the Z-test
+z_crit = norm.ppf(1-alpha/2)
+print(f"Z-critical value from Standard Normal distribution: {z_crit}")

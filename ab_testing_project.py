@@ -68,3 +68,14 @@ print(f"Test Statistics for 2-sample Z-test is: {stat_ztest}")
 # critical value of the Z-test
 z_crit = norm.ppf(1-alpha/2)
 print(f"Z-critical value from Standard Normal distribution: {z_crit}")
+
+# P-value calculation using the previous test statistics
+p_value = 2 * norm.sf(abs(stat_ztest))
+print(p_value)
+
+# Satistical significance, is p_value smaller than our significance level ?
+if p_value <= alpha:
+  print("There is statistical significance, meaning that we can reject H0")
+else:
+  print("There is no statistical significance")
+# Transform the code above into a function ? Could be re-usable

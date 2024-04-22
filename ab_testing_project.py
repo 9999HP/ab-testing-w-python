@@ -73,9 +73,11 @@ print(f"Z-critical value from Standard Normal distribution: {z_crit}")
 p_value = 2 * norm.sf(abs(stat_ztest))
 print(p_value)
 
-# Satistical significance, is p_value smaller than our significance level ?
-if p_value <= alpha:
-  print("There is statistical significance, meaning that we can reject H0")
-else:
-  print("There is no statistical significance")
-# Transform the code above into a function ? Could be re-usable
+# Function that checks the statistical significance
+def statistical_significance(p_value, alpha):
+  if p_value <= alpha:
+    print("Since the p-value is less than the significance level, we can conclude that the observed differences between the groups are statistically significant and not due to random variation.")
+  else:
+    print("Since the p-value is greater than the significance level, we cannot conclude that the observed differences between the groups are statistically significant; they may be due to random variation.")
+
+statistical_significance(p_value, alpha)

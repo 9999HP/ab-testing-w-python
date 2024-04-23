@@ -86,8 +86,19 @@ statistical_significance(p_value, alpha)
 Now that we know if there is a statistical significance, we must calculate the Confidence Interval in order to check for the practical significance
 '''
 
-# Calculate the CI
+# Calculate the CI (95%)
 CI = [round((p_exp - p_control) - SE * z_crit, 4), round((p_exp - p_control) + SE * z_crit, 4)]
 
 # Print the CI
 print(f"The range for the confidence interval is: {CI}")
+
+# Testing for practical significance using previous measures: Minimum Detectable Effect and the lower bound of the CI
+def practically_significant(mde, lower_ci):
+  if lower_ci >= mde:
+    print(f"The MDE is {mde} and the minimum value of the CI is {lower_ci}")
+    print("There is a practical significant difference between the Control and Experimental groups!")
+  else:
+    print(f"The MDE is {mde} and the minimum value of the CI is {lower_ci}")
+    print("There is no practical significant difference between the Control and Experimental groups.")
+
+practically_significant(mde, CI[0])

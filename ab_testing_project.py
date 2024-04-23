@@ -81,3 +81,13 @@ def statistical_significance(p_value, alpha):
     print("Since the p-value is greater than the significance level, we cannot conclude that the observed differences between the groups are statistically significant; they may be due to random variation.")
 
 statistical_significance(p_value, alpha)
+
+'''
+Now that we know if there is a statistical significance, we must calculate the Confidence Interval in order to check for the practical significance
+'''
+
+# Calculate the CI
+CI = [round((p_exp - p_control) - SE * z_crit, 4), round((p_exp - p_control) + SE * z_crit, 4)]
+
+# Print the CI
+print(f"The range for the confidence interval is: {CI}")

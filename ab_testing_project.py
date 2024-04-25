@@ -63,12 +63,8 @@ print(f"Pooled Click probability: {p_pooled}")
 pooled_var = p_pooled * (1-p_pooled) * (1/N_control + 1/N_exp)
 print(f"The pooled variance is equal to: {pooled_var}")
 
-# Pooled Standard Deviation
-SD = np.sqrt(pooled_var)
-print(f"Standard Deviation: {SD}")
-
 # Pooled Standard Error
-SE = SD * np.sqrt(1/N_control + 1/N_exp)
+SE = np.sqrt(pooled_var)
 print(f"Standard Error: {SE}")
 
 # Z-test test statistics

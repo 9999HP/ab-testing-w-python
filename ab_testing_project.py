@@ -67,13 +67,19 @@ print(f"The pooled variance is equal to: {pooled_var}")
 SE = np.sqrt(pooled_var)
 print(f"Standard Error: {SE}")
 
-# Z-test test statistics
+# 2-Sample Z-test test statistics calculation
 stat_ztest = (p_control - p_exp) / SE
 print(f"Test Statistics for 2-sample Z-test is: {stat_ztest}")
 
-# critical value of the Z-test
+# Z-critical value calculation
 z_crit = norm.ppf(1-alpha/2)
 print(f"Z-critical value from Standard Normal distribution: {z_crit}")
+
+'''
+We already have important information about the significance of the results with these 2 values. Indeed, if the value of the test statistic is more extreme than the critical Z value, we can already say that there is a significant difference between groups and that we can reject the null hypothesis.
+
+However, calculating the p-value remains a traditional step, so I'll also calculate it and compare the result with alpha (the significance level).
+'''
 
 # P-value calculation using the previous test statistics
 p_value = 2 * norm.sf(abs(stat_ztest))
@@ -89,7 +95,11 @@ def statistical_significance(p_value, alpha):
 statistical_significance(p_value, alpha)
 
 '''
-Now that we know if there is a statistical significance, we must calculate the Confidence Interval in order to check for the practical significance
+Now that we know if there is a statistical significance, we can calculate the Confidence Interval in order to check for the practical significance.
+
+If the lower bound of the CI is bigger than the MDE, we can say that there is a practical significance.
+
+The width of the CI also gives us important information. The narrower it is, the more precise and generalizable the result is to the entire population.
 '''
 
 # Calculate the CI (95%)
@@ -101,10 +111,10 @@ print(f"The range for the confidence interval is: {CI}")
 # Testing for practical significance using previous measures: Minimum Detectable Effect and the lower bound of the CI
 def practically_significant(mde, lower_ci):
   if lower_ci >= mde:
-    print(f"The MDE is {mde} and the minimum value of the CI is {lower_ci}")
-    print("There is a practical significant difference between the Control and Experimental groups!")
+    print(f"The MDE is {mde} and the lower bound value of the CI is {lower_ci}")
+    print("There is a practical significant difference between the groups!")
   else:
-    print(f"The MDE is {mde} and the minimum value of the CI is {lower_ci}")
-    print("There is no practical significant difference between the Control and Experimental groups.")
+    print(f"The MDE is {mde} and the lower bound value of the CI is {lower_ci}")
+    print("There is no practical significant difference between the groups.")
 
 practically_significant(mde, CI[0])
